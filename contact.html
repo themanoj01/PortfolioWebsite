@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact - Manoj Poudel</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="logo">
+          <a href="index.html">Port<span>folio.</span></a>
+        </div>
+        <ul class="menu" id="menu">
+          <li><a href="index.html" class="menu-btn">Home</a></li>
+          <li><a href="about.html" class="menu-btn">About</a></li>
+          <li><a href="Services.html" class="menu-btn">Services</a></li>
+          <li><a href="skills.html" class="menu-btn">Skills</a></li>
+          <li><a href="contact.html" class="menu-btn">Contact</a></li>
+        </ul>
+        <div class="menu-btn" id="menu-btn" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+    </nav>
+    <section class="contact" id="contact">
+      <div class="container1">
+        <h2
+          class="title"
+          style="text-align: center; color: darkred; padding-top: 30px"
+        >
+          <span>Contact Me!</span>
+        </h2>
+        <div class="contact-content">
+          <div class="up">
+            <p>
+              If you have any questions, project ideas, or simply want to say
+              hello, feel free to contact me using the provided contact
+              information. I am open to hearing from you and value your
+              communication. Reach out to me via email, phone, or social media,
+              and I will respond promptly. I believe in the power of
+              collaboration and look forward to discussing how we can work
+              together to achieve your goals. Don't hesitate to get in touch –
+              I'm here to help!
+            </p>
+            <div class="icons">
+              <div class="row">
+                <i class="fas fa-user"></i>
+                <div class="info">
+                  <div class="head">Name</div>
+                  <div class="sub-title">Manoj Poudel</div>
+                </div>
+              </div>
+              <div class="row">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="info">
+                  <div class="head">Address</div>
+                  <div class="sub-title">Kathmandu, Nepal</div>
+                </div>
+              </div>
+              <div class="row">
+                <i class="fas fa-phone fa-beat-fade"></i>
+                <div class="info">
+                  <div class="head">Phone</div>
+                  <div class="sub-title">+977 9807584573 / +977 9845208099</div>
+                </div>
+              </div>
+              <div class="row">
+                <i class="fas fa-envelope"></i>
+                <div class="info">
+                  <div class="head">Email</div>
+                  <div class="sub-title">februarymanoj2004@gmail.com</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="down">
+            <div
+              class="text"
+              style="font-weight: 600; color: rgb(6, 8, 8); text-align: center"
+            >
+              Leave a message.
+            </div>
+            <form id="feedbackform" onsubmit="validateform()">
+              <div class="details">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="details">
+                <label for="email">Email Id:</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div class="details">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+              <div class="details">
+                <label for="message">Your Message to me:</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="8"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/manoj.poudel.58910"
+          ><i class="fab fa-facebook"></i
+        ></a>
+        <a href="https://www.instagram.com/manoj_poudel01"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a href="https://twitter.com/ManojPo23806280"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="https://www.linkedin.com/in/manoj-poudel-621749259"
+          ><i class="fab fa-linkedin"></i
+        ></a>
+      </div>
+      <p>&copy; 2023 Manoj Poudel. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
