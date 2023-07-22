@@ -471,7 +471,7 @@ footer {
   color: #fff;
 }
 /* responsive media query start */
-/* @media (max-width: 1104px) {
+@media (max-width: 1104px) {
   .about .about-content .left img {
     height: 350px;
     width: 350px;
@@ -546,4 +546,4 @@ footer {
     width: 100%;
     margin-bottom: 35px;
   }
-} */
+}
