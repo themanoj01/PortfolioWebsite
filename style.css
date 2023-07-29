@@ -11,11 +11,6 @@
 section {
   padding: 100px 50px;
 }
-/* .container {
-  max-width: 100%;
-  padding: 0 80px;
-  margin: auto;
-} */
 
 .about,
 .services,
@@ -24,26 +19,14 @@ section {
 footer {
   font-family: "Poppins", sans-serif;
 }
-/* .about .about-content,
-.services .serv-content,
-.skills .skills-content,
-.contact .contact-content {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-} */
 
 /* navbar styling */
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 5;
   padding: 20px 20px;
   font-family: Arial, Helvetica, sans-serif;
-  transition: all 0.5s ease;
-  text-align: right;
   background-color: #4a4747;
 }
 
@@ -58,14 +41,9 @@ footer {
 }
 .navbar .logo a span {
   color: crimson;
-  transition: all 0.3s ease;
   font-family: "Times New Roman", Times, serif;
   font-style: italic;
 }
-.navbar .container .logo a span :hover {
-  color: aqua;
-}
-
 .navbar .menu li {
   list-style: none;
   display: inline-block;
@@ -77,7 +55,6 @@ footer {
   font-weight: 500;
   margin-left: 10px;
   padding-left: 25px;
-  transition: color 0.3s ease;
   text-decoration: none;
 }
 .navbar .menu li a:hover {
@@ -100,11 +77,6 @@ footer {
 }
 
 @media (max-width: 768px) {
-  .navbar {
-    position: fixed;
-    background-color: rgba(0, 128, 255, 0.5);
-  }
-
   .menu-btn {
     display: block;
   }
@@ -119,12 +91,12 @@ footer {
   }
 
   .menu.show-menu li {
-    display: inline-block;
+    display: block;
   }
 
   .menu.show-menu li a {
     display: block;
-    padding: 8px;
+    padding: 5px;
     color: #faf6f6;
     text-decoration: none;
   }
@@ -132,23 +104,17 @@ footer {
 
 /* home section styling */
 .home {
-  display: flex;
-  background: url("images/manoj.jpeg") no-repeat;
-  max-width: 100%;
-  height: 900px;
+  background-image: url("images/manoj.jpeg");
+  height: 100vh;
   color: #fff;
-  background-position: center;
+  background-color: #000;
+  background-position: top right;
   background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
-.home .container {
-  max-width: 100%;
-  display: flex;
+  background-size: 1100px;
 }
 
 .home .container .home-content {
-  padding: 60px 20px;
+  padding: 40px 20px;
   margin-top: 50px;
 }
 .home .home-content .text-1 {
@@ -196,23 +162,14 @@ footer {
 .about {
   background-color: #d5d1d1;
   line-height: 1.8;
-  margin-top: 70px;
 }
-.about .container {
-  top: 50%;
-  left: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+
 .about .container .text {
   font-size: 25px;
   font-weight: 600;
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 .about .container .text span {
@@ -221,25 +178,36 @@ footer {
 .about .about-content .up {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 350px;
-  padding: 0 50px;
-}
-.about-content .up img {
-  max-width: 100%;
-  max-height: 100%;
+  height: 400px;
 }
 
 .about .about-content .down {
-  width: 70%;
-}
-
-.about .about-content .down p {
+  width: 60%;
+  margin: 0 auto;
   text-align: justify;
+}
+@media screen and (max-width: 768px) {
+  .about .about-content .up img {
+    max-width: 100%;
+  }
+  .about .about-content .down {
+    width: 100%;
+    text-align: justify;
+  }
+}
+.down p {
+  margin-top: 20px;
+}
+.about .about-content .down ul li {
+  background-color: rgb(238, 73, 73);
+  display: inline-block;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bolder;
 }
 
 .about .about-content .down a {
-  display: inline-block;
   background: crimson;
   color: #fff;
   font-size: 20px;
@@ -248,25 +216,18 @@ footer {
   margin-top: 20px;
   border-radius: 6px;
   text-decoration: none;
-  margin: 25px;
-  border: 2px solid crimson;
+  border: 2px solid rgb(193, 59, 85);
   transition: all 0.3s ease;
 }
 .about .about-content .down a:hover {
   color: crimson;
-  background: none;
+  background-color: #fff;
 }
 
 /* services section styling */
 .services {
   color: #fff;
   background-color: #e9e5e5;
-  margin-top: 80px;
-}
-
-.service-content {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .services .service-content .card {
@@ -276,12 +237,12 @@ footer {
   padding: 30px;
   margin: 20px 10px;
   cursor: pointer;
-  transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in;
   max-width: 100%;
 }
 .services .service-content .card:hover {
   background: crimson;
-  transition: color 0.5s ease;
+  transition: color 0.3s ease;
 }
 .services .service-content .card .box {
   transition: all 0.3s ease;
@@ -291,26 +252,16 @@ footer {
 }
 .services .service-content .card i {
   font-size: 50px;
-  color: rgb(156, 4, 29);
+  color: rgb(144, 5, 111);
   transition: color 0.5s ease;
 }
 .services .service-content .card .text {
   font-size: 25px;
   font-weight: 500;
-  margin: 10px 0 7px 0;
 }
-/* @media (max-width: 767px) {
-  .card {
-    flex-basis: 50%;
-    max-width: 50%;
-  }
-} */
 
 /* skills section styling */
 
-.skills {
-  margin-top: 80px;
-}
 .skills .skills-content .content-up .text {
   font-size: 20px;
   font-weight: 600;
@@ -372,26 +323,23 @@ footer {
   color: #ff7f50;
 }
 /* contact section styling */
-.contact {
-  background-color: #f7ebeb;
-  margin-top: 70px;
-  box-sizing: border-box;
+.contact .contact-content {
+  background-color: #f9f5f5;
 }
+
 .contact .contact-content .up p {
-  padding: 0 20px;
+  padding: 0 10px;
 }
 .contact .contact-content .up .icons {
   margin: 10px 0;
 }
 .contact .contact-content .row {
   display: flex;
-  height: 65px;
   align-items: center;
   padding: 15px;
 }
 .contact .contact-content .row .info {
   margin-left: 30px;
-  padding: 15px;
 }
 .contact .contact-content .row i {
   font-size: 25px;
@@ -403,23 +351,17 @@ footer {
 .contact .contact-content .info .sub-title {
   color: #333;
 }
-.contact .container1 .title span {
-  font-weight: 525;
-}
 
 #feedbackform {
   max-width: 100%;
   padding: 20px;
-  box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
 }
 .details {
   margin-bottom: 20px;
 }
 
 label {
-  font-weight: bold;
+  font-weight: bolder;
   display: block;
   margin: 10px;
   font-size: 16px;
@@ -427,18 +369,16 @@ label {
 
 input,
 textarea {
-  width: 342px;
-  padding: 8px;
+  width: 350px;
+  padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
-  box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
   resize: vertical;
 }
 
 button[type="submit"] {
-  width: 50%;
-  padding: 10px;
+  padding: 10px 20px;
   background-color: crimson;
   color: #ffffff;
   border: 1px solid red;
@@ -466,87 +406,20 @@ footer {
 .social-icons a {
   display: inline-block;
   margin-right: 10px;
-  color: #333;
+  color: #908f8f;
   font-size: 30px;
 }
 
 .social-icons a:hover {
   color: #fff;
 }
-/* responsive media query start */
-@media (max-width: 1104px) {
-  .about .about-content .left img {
-    height: 350px;
-    width: 350px;
-  }
-}
 
-@media (max-width: 991px) {
-  .max-width {
-    padding: 0 50px;
-  }
-}
-@media (max-width: 947px) {
-  .menu-btn {
-    display: block;
-    z-index: 999;
-  }
-  .menu-btn i.active:before {
-    content: "\f00d";
-  }
-  .navbar .menu {
-    position: fixed;
-    height: 100vh;
-    width: 100%;
-    left: -100%;
-    top: 0;
-    background: #111;
-    text-align: center;
-    padding-top: 80px;
-    transition: all 0.3s ease;
-  }
-  .navbar .menu.active {
-    left: 0;
-  }
-  .navbar .menu li {
-    display: block;
-  }
-  .navbar .menu li a {
-    display: inline-block;
-    margin: 20px 0;
-    font-size: 25px;
-  }
-  .home .home-content .text-2 {
-    font-size: 70px;
-  }
-  .home .home-content .text-3 {
-    font-size: 35px;
-  }
-  .home .home-content a {
-    font-size: 23px;
-    padding: 10px 30px;
-  }
-  .max-width {
-    max-width: 930px;
-  }
-  .about .about-content .column {
-    width: 100%;
-  }
-  .about .about-content .left {
-    display: flex;
-    justify-content: center;
-    margin: 0 auto 60px;
-  }
-  .about .about-content .right {
-    flex: 100%;
-  }
-  .services .serv-content .card {
-    width: calc(50% - 10px);
-    margin-bottom: 20px;
-  }
-  .skills .skills-content .column,
-  .contact .contact-content .column {
-    width: 100%;
-    margin-bottom: 35px;
+@media (max-width: 768px) {
+  .home,
+  .about,
+  .skills,
+  .services,
+  .contact {
+    margin-top: 150px;
   }
 }

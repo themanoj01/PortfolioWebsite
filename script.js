@@ -1,16 +1,21 @@
 function toggleMenu() {
   var menu = document.getElementById("menu");
+  var menuBtn = document.querySelector(".menu-btn");
+
   menu.classList.toggle("show-menu");
-}
-
-document.addEventListener("click", function (event) {
-  var menu = document.getElementById("menu");
-  var menuBtn = document.getElementById("menu-btn");
-
-  if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
-    menu.classList.remove("show-menu");
+  if (menu.classList.contains("show-menu")) {
+    menuBtn.style.display = "none";
+  } else {
+    menuBtn.style.display = "block";
   }
-});
+
+  var menuItems = document.querySelectorAll(".menu-btn");
+  menuItems.forEach(function (item) {
+    item.addEventListener("click", function () {
+      menu.classList.remove("show-menu");
+    });
+  });
+}
 
 function validateform() {
   var name = document.forms["feedbackform"]["name"].value;
