@@ -387,12 +387,7 @@ textarea {
 }
 
 button[type="submit"] {
-<<<<<<< HEAD:Style/style.css
   padding: 10px 20px;
-=======
-  width: 50%;
-  padding: 10px;
->>>>>>> 196ca6da6c60450e88bffdcc6253f4f076f89bd8:style.css
   background-color: crimson;
   color: #ffffff;
   border: 1px solid red;
@@ -437,4 +432,3 @@ footer {
     margin-top: 150px;
   }
 }
-
