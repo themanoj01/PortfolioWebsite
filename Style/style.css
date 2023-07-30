@@ -104,7 +104,7 @@ footer {
 
 /* home section styling */
 .home {
-  background-image: url("images/manoj.jpeg");
+  background-image: url("/images/manoj.jpeg");
   height: 100vh;
   color: #fff;
   background-color: #000;
