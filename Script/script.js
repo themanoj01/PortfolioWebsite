@@ -1,12 +1,15 @@
 function toggleMenu() {
   var menu = document.getElementById("menu");
   var menuBtn = document.querySelector(".menu-btn");
+  var body = document.body;
 
   menu.classList.toggle("show-menu");
   if (menu.classList.contains("show-menu")) {
     menuBtn.style.display = "none";
+    body.classList.add("menu-opened");
   } else {
     menuBtn.style.display = "block";
+    body.classList.remove("menu-opened");
   }
 
   var menuItems = document.querySelectorAll(".menu-btn");

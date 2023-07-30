@@ -28,6 +28,7 @@ footer {
   padding: 20px 20px;
   font-family: Arial, Helvetica, sans-serif;
   background-color: #4a4747;
+  z-index: 100;
 }
 
 .navbar .container {
@@ -237,12 +238,12 @@ footer {
   padding: 30px;
   margin: 20px 10px;
   cursor: pointer;
-  transition: all 0.4s ease-in;
+  transition: transform 0.3s ease-in-out;
   max-width: 100%;
 }
 .services .service-content .card:hover {
   background: crimson;
-  transition: color 0.3s ease;
+  transform: scale(1.05);
 }
 .services .service-content .card .box {
   transition: all 0.3s ease;
@@ -252,12 +253,23 @@ footer {
 }
 .services .service-content .card i {
   font-size: 50px;
-  color: rgb(144, 5, 111);
+  color: crimson;
   transition: color 0.5s ease;
+}
+.service-content .card .box p {
+  width: 90%;
+  position: relative;
+  margin: 0 auto;
+}
+.services .service-content .card:hover i {
+  color: #fff;
 }
 .services .service-content .card .text {
   font-size: 25px;
   font-weight: 500;
+}
+.services .service-content .card {
+  animation: fadeInCard 0.6s ease-in-out;
 }
 
 /* skills section styling */
@@ -400,6 +412,27 @@ button[type="submit"]:hover {
   background-color: grey;
   color: black;
 }
+@media screen and (max-width: 768px) {
+  .contact .contact-content .up .icons {
+    display: flex;
+    flex-direction: column;
+  }
+  .contact .contact-content .row {
+    flex-direction: column;
+  }
+
+  .contact .contact-content .row .info {
+    margin-left: 0;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    max-width: 350px;
+  }
+}
 
 /* footer section styling */
 footer {
@@ -423,12 +456,10 @@ footer {
   color: #fff;
 }
 
-@media (max-width: 768px) {
-  .home,
-  .about,
-  .skills,
-  .services,
-  .contact {
-    margin-top: 150px;
-  }
+body.menu-opened .home,
+body.menu-opened .about,
+body.menu-opened .skills,
+body.menu-opened .services,
+body.menu-opened .contact {
+  margin-top: 150px;
 }
