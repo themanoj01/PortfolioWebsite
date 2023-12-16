@@ -28,6 +28,6 @@ function validateform() {
   if (name == "" || email == "" || phone == "" || message == "") {
     alert("please fill the form completely.");
   } else {
-    alert("Thank you for your feedback.");
+    window.open("../html/thankyou.html");
   }
 }
