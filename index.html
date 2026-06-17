@@ -1,67 +1,1062 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home - Manoj Poudel</title>
-    <link rel="stylesheet" href="Style/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-  </head>
-  <body>
-    <nav class="navbar">
-      <div class="container">
-        <div class="logo">
-          <a href="index.html">Port<span>folio.</span></a>
-        </div>
-        <ul class="menu" id="menu">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="html/about.html">About</a></li>
-          <li><a href="html/Services.html">Services</a></li>
-          <li><a href="html/Skills.html">Skills</a></li>
-          <li><a href="html/contact.html">Contact</a></li>
-        </ul>
-        <div class="menu-btn" id="menu-btn" onclick="toggleMenu()">
-          <i class="fas fa-bars"></i>
-        </div>
-      </div>
-    </nav>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manoj Poudel — Java Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060a;
+  --bg2: #0d0d14;
+  --surface: #111118;
+  --border: rgba(255,255,255,0.07);
+  --accent: #4f7bff;
+  --accent2: #7b9fff;
+  --text: #f0f0f8;
+  --muted: #6b6b80;
+  --subtle: #2a2a38;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+  --display: 'Syne', sans-serif;
+}
 
-    <!-- home section start -->
-    <section class="home" id="home">
-      <div class="container">
-        <div class="home-content">
-          <div class="text-1"><span>Hello,</span> My Name is</div>
-          <div class="text-2">Manoj Poudel</div>
-          <div class="text-3">
-            And I'm a <span> FullStack Developer. </span>
-          </div>
-          <a href="html/contact.html">Let's collaborate!</a>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  mix-blend-mode: normal;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(79,123,255,0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+}
+.cursor.expand { width: 16px; height: 16px; background: var(--accent2); }
+.cursor-ring.expand { width: 52px; height: 52px; opacity: 0.6; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 24px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s, background 0.4s, backdrop-filter 0.4s;
+}
+nav.scrolled {
+  background: rgba(6,6,10,0.85);
+  backdrop-filter: blur(16px);
+  border-color: var(--border);
+}
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: none;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 1.5px;
+  background: var(--muted);
+  transition: all 0.3s ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--text); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--text); }
+
+.mobile-menu {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(6,6,10,0.97);
+  backdrop-filter: blur(20px);
+  z-index: 99;
+  flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 32px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--display);
+  font-size: 36px; font-weight: 700;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  transition: color 0.2s;
+}
+.mobile-menu a:hover { color: var(--accent); }
+
+/* HERO */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  padding: 120px 48px 80px;
+}
+
+#particles-canvas {
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 900px;
+  width: 100%;
+}
+
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.3s forwards;
+}
+
+.hero-name {
+  font-family: var(--display);
+  font-size: clamp(52px, 9vw, 110px);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.hero-name .line {
+  display: block;
+  opacity: 0;
+  transform: translateY(60px);
+  animation: slideUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.hero-name .line:nth-child(1) { animation-delay: 0.5s; }
+.hero-name .line:nth-child(2) { animation-delay: 0.65s; color: var(--accent); }
+
+.hero-desc {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 1s forwards;
+}
+
+.hero-desc strong { color: var(--text); font-weight: 500; }
+
+.hero-actions {
+  display: flex; gap: 16px; align-items: center;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 1.2s forwards;
+}
+
+.btn-primary {
+  padding: 14px 28px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: none;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(79,123,255,0.35);
+  background: #6089ff;
+}
+
+.btn-ghost {
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: none;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
+.btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+.hero-scroll {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.6s forwards;
+}
+.scroll-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollPulse 2s ease infinite;
+}
+.scroll-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.12em; }
+
+/* SECTION BASE */
+section { padding: 120px 48px; }
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.section-sub {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.container { max-width: 1100px; margin: 0 auto; }
+
+/* ABOUT */
+#about { background: var(--bg2); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 64px;
+}
+.about-statement {
+  font-family: var(--display);
+  font-size: clamp(22px, 2.8vw, 32px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.about-statement em { color: var(--accent); font-style: normal; }
+.about-body {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+  font-weight: 300;
+}
+.about-body p + p { margin-top: 16px; }
+.currently-block {
+  margin-top: 48px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.currently-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.currently-label::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px rgba(34,197,94,0.5);
+  animation: blink 2s ease infinite;
+}
+.currently-item {
+  font-size: 14px;
+  color: var(--text);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-weight: 400;
+  display: flex; justify-content: space-between;
+}
+.currently-item:last-child { border-bottom: none; }
+.currently-item span { color: var(--muted); font-size: 13px; }
+
+/* SKILLS */
+#skills { background: var(--bg); }
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 64px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.skill-group {
+  padding: 32px;
+  background: var(--surface);
+  transition: background 0.3s;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.skill-group:hover { background: #14141f; }
+.skill-group-name {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-tag {
+  font-size: 12.5px;
+  padding: 5px 12px;
+  background: rgba(79,123,255,0.08);
+  border: 1px solid rgba(79,123,255,0.15);
+  border-radius: 100px;
+  color: rgba(240,240,248,0.8);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.skill-tag:hover {
+  background: rgba(79,123,255,0.18);
+  border-color: rgba(79,123,255,0.4);
+  transform: translateY(-1px);
+}
+
+/* PROJECTS */
+#builds { background: var(--bg2); }
+.projects-list { margin-top: 64px; display: flex; flex-direction: column; gap: 2px; }
+
+.project-item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 32px;
+  align-items: center;
+  padding: 32px 36px;
+  background: var(--surface);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+.project-item::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+  transform-origin: bottom;
+}
+.project-item:hover { background: #13131c; border-color: rgba(79,123,255,0.2); transform: translateX(4px); }
+.project-item:hover::before { transform: scaleY(1); }
+
+.project-number {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.project-info {}
+.project-name {
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.project-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 540px;
+}
+.project-stack {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  justify-content: flex-end;
+}
+.stack-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+}
+
+.project-arrow {
+  position: absolute; right: 36px; top: 50%; transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--muted);
+  transition: transform 0.3s, color 0.3s;
+  opacity: 0;
+}
+.project-item:hover .project-arrow { opacity: 1; color: var(--accent); transform: translateY(-50%) translateX(4px); }
+
+/* EXPERIENCE */
+#timeline { background: var(--bg); }
+.timeline-list { margin-top: 64px; position: relative; }
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+.timeline-item {
+  padding: 0 0 52px 40px;
+  position: relative;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -4px; top: 8px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.timeline-item:hover::before {
+  background: var(--accent);
+  box-shadow: 0 0 16px rgba(79,123,255,0.5);
+}
+.timeline-period {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+.timeline-role {
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.timeline-org {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+.timeline-points { list-style: none; }
+.timeline-points li {
+  font-size: 14px;
+  color: rgba(240,240,248,0.55);
+  padding: 5px 0;
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.6;
+}
+.timeline-points li::before {
+  content: '—';
+  position: absolute; left: 0;
+  color: var(--accent);
+  font-family: var(--mono);
+}
+
+/* CONTACT */
+#signal {
+  background: var(--bg2);
+  text-align: center;
+  min-height: 70vh;
+  display: flex; align-items: center; justify-content: center;
+}
+.contact-inner { max-width: 640px; }
+.contact-big {
+  font-family: var(--display);
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  color: var(--text);
+}
+.contact-big em { color: var(--accent); font-style: normal; }
+.contact-sub {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 48px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+.contact-email {
+  display: inline-block;
+  font-family: var(--display);
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+  transition: color 0.3s, border-color 0.3s;
+  margin-bottom: 48px;
+}
+.contact-email:hover { color: var(--accent); }
+.contact-links { display: flex; gap: 24px; justify-content: center; }
+.contact-link {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  display: flex; align-items: center; gap: 6px;
+}
+.contact-link:hover { color: var(--text); }
+.contact-link::before { content: '↗'; font-size: 10px; }
+
+/* FOOTER */
+footer {
+  background: var(--bg);
+  padding: 32px 48px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-left { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.footer-left span { color: var(--accent); }
+.footer-right { font-size: 12px; color: var(--muted); }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* REVEAL on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 20px 24px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  section { padding: 80px 24px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .project-item { grid-template-columns: 1fr; gap: 12px; }
+  .project-stack { justify-content: flex-start; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">new Manoj()</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Stack</a></li>
+    <li><a href="#builds">Work</a></li>
+    <li><a href="#timeline">Journey</a></li>
+    <li><a href="#signal">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#skills" class="mobile-link">Stack</a>
+  <a href="#builds" class="mobile-link">Work</a>
+  <a href="#timeline" class="mobile-link">Journey</a>
+  <a href="#signal" class="mobile-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="particles-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-tag">// Java Software Engineer · Kathmandu, Nepal</div>
+    <h1 class="hero-name">
+      <span class="line">Manoj</span>
+      <span class="line">Poudel.</span>
+    </h1>
+    <p class="hero-desc">
+      I build the <strong>systems behind the experience</strong> — clean APIs, reliable backends, and software that does exactly what it promises. Based in Nepal, working globally.
+    </p>
+    <div class="hero-actions">
+      <a href="#builds" class="btn-primary">View My Work</a>
+      <a href="#signal" class="btn-ghost">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-label">scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-eyebrow reveal">01 · Identity</div>
+    <div class="about-grid">
+      <div>
+        <div class="about-statement reveal">
+          I don't just write code.<br>
+          I architect <em>invisible systems</em> that power real experiences.
+        </div>
+        <div class="currently-block reveal reveal-delay-1">
+          <div class="currently-label">Currently</div>
+          <div class="currently-item">Tutor — Java Programming <span>Islington College</span></div>
+          <div class="currently-item">Research & Innovation Lab <span>Islington College</span></div>
+          <div class="currently-item">Open to Remote Roles <span>Worldwide</span></div>
         </div>
       </div>
-    </section>
-    <!-- footer section start -->
-    <footer>
-      <div class="social-icons">
-        <a href="https://www.facebook.com/manoj.poudel.58910" target="_blank"
-          ><i class="fab fa-facebook"></i
-        ></a>
-        <a href="https://www.instagram.com/manoj_poudel01" target="_blank"
-          ><i class="fab fa-instagram"></i
-        ></a>
-        <a href="https://twitter.com/ManojPo23806280" target="_blank"
-          ><i class="fab fa-twitter"></i
-        ></a>
-        <a
-          href="https://www.linkedin.com/in/manoj-poudel-621749259"
-          target="_blank"
-          ><i class="fab fa-linkedin"></i
-        ></a>
+      <div class="about-body reveal reveal-delay-2">
+        <p>I'm a Java backend developer with a First Class Honours degree in Computing from London Metropolitan University. My foundation is in Spring Boot, REST API design, and relational databases — built through real projects, not just coursework.</p>
+        <p>I completed my internship at Amnil Technologies, led the backend development of a college-wide digital system, and independently built Sewaghar — a full-stack service booking platform from schema design to deployment-ready code.</p>
+        <p>Beyond building, I teach. Mentoring 100+ students in Java has made me a better engineer — because the only way to truly understand a system is to explain it to someone else.</p>
       </div>
-      <p>&copy; 2023 Manoj Poudel. All rights reserved.</p>
-    </footer>
-    <script src="Script/script.js"></script>
-  </body>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-eyebrow reveal">02 · The Stack</div>
+    <div class="section-title reveal">What I build with.</div>
+    <div class="section-sub reveal reveal-delay-1">Tools chosen deliberately. Every entry here has been used in a real project.</div>
+    <div class="skills-grid reveal reveal-delay-2">
+      <div class="skill-group">
+        <div class="skill-group-name">Core Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Spring Boot</span>
+          <span class="skill-tag">Spring Security</span>
+          <span class="skill-tag">Hibernate/JPA</span>
+          <span class="skill-tag">React.js</span>
+          <span class="skill-tag">JSP, JSTL</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">PostgreSQL</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Testing</div>
+        <div class="skill-tags">
+          <span class="skill-tag">JUnit</span>
+          <span class="skill-tag">Mockito</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Tools & Cloud</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Git · GitHub</span>
+          <span class="skill-tag">Maven</span>
+          <span class="skill-tag">Postman</span>
+          <span class="skill-tag">Swagger</span>
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">IntelliJ IDEA</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Backend Concepts</div>
+        <div class="skill-tags">
+          <span class="skill-tag">REST API design</span>
+          <span class="skill-tag">MVC architecture</span>
+          <span class="skill-tag">WebSockets</span>
+          <span class="skill-tag">Microservices</span>
+          <span class="skill-tag">Third-party APIs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="builds">
+  <div class="container">
+    <div class="section-eyebrow reveal">03 · Selected Work</div>
+    <div class="section-title reveal">Things I've built.</div>
+    <div class="section-sub reveal reveal-delay-1">Each one started with a problem. These are the solutions.</div>
+
+    <div class="projects-list">
+
+      <a href="https://github.com/themanoj01/FYP-Sewaghar" target="_blank" class="project-item reveal">
+        <div class="project-number">001</div>
+        <div class="project-info">
+          <div class="project-name">Sewaghar — Home Service Booking Platform</div>
+          <div class="project-desc">A full-stack platform connecting customers with home service professionals. Designed the entire system from a 15-table database schema to real-time chat via WebSockets, third-party payment integration, and admin/provider dashboards. Eight months solo. First Class Honours.</div>
+          <div class="project-stack" style="margin-top:12px; justify-content: flex-start;">
+            <span class="stack-tag">Spring Boot</span>
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">MySQL</span>
+            <span class="stack-tag">WebSockets</span>
+            <span class="stack-tag">JUnit</span>
+          </div>
+        </div>
+        <span class="project-arrow">→</span>
+      </a>
+
+      <a href="https://github.com/themanoj01/MediSys" target="_blank" class="project-item reveal reveal-delay-1">
+        <div class="project-number">002</div>
+        <div class="project-info">
+          <div class="project-name">Medisys — Hospital Management System</div>
+          <div class="project-desc">Built for a real client. A full-stack hospital system handling appointment scheduling, room allocation, and resource management to streamline patient-doctor coordination.</div>
+          <div class="project-stack" style="margin-top:12px; justify-content: flex-start;">
+            <span class="stack-tag">Spring Boot</span>
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">MySQL</span>
+            <span class="stack-tag">REST APIs</span>
+          </div>
+        </div>
+        <span class="project-arrow">→</span>
+      </a>
+
+      <a href="https://github.com/themanoj01/Ecommerce-Java" target="_blank" class="project-item reveal reveal-delay-2">
+        <div class="project-number">003</div>
+        <div class="project-info">
+          <div class="project-name">Apple Products E-Commerce Platform</div>
+          <div class="project-desc">A feature-rich e-commerce platform built around Apple products, implementing a complete MVC architecture with Java Servlets, JSTL, JDBC, and custom filter middleware.</div>
+          <div class="project-stack" style="margin-top:12px; justify-content: flex-start;">
+            <span class="stack-tag">Java</span>
+            <span class="stack-tag">JSP · JSTL</span>
+            <span class="stack-tag">Servlets</span>
+            <span class="stack-tag">JDBC</span>
+            <span class="stack-tag">MVC</span>
+          </div>
+        </div>
+        <span class="project-arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="timeline">
+  <div class="container">
+    <div class="section-eyebrow reveal">04 · Journey</div>
+    <div class="section-title reveal">How I got here.</div>
+
+    <div class="timeline-list">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-period">Jun 2026 — Present</div>
+        <div class="timeline-role">Tutor & Research and Innovation Lab Assistant</div>
+        <div class="timeline-org">Islington College, Kathmandu</div>
+        <ul class="timeline-points">
+          <li>Deliver the undergraduate Java programming module — tutorials, workshops, one-to-one guidance</li>
+          <li>Assess assignments and prepare course materials for 100+ students</li>
+          <li>Support the Research & Innovation Lab: coordinating workshops, events, and researcher communication</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal reveal-delay-1">
+        <div class="timeline-period">Aug 2025 — May 2026</div>
+        <div class="timeline-role">Graduate Teaching Assistant</div>
+        <div class="timeline-org">Islington College, Kathmandu</div>
+        <ul class="timeline-points">
+          <li>Led backend development of the PAT department digitalization system — PostgreSQL schema design, Spring Boot REST APIs for complaint management, surveys, and extension requests</li>
+          <li>Assisted lecturers in programming modules and collaborated with the R&D unit</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal reveal-delay-2">
+        <div class="timeline-period">Aug 2024 — Nov 2024</div>
+        <div class="timeline-role">Java Intern</div>
+        <div class="timeline-org">Amnil Technologies Pvt. Ltd., Kathmandu</div>
+        <ul class="timeline-points">
+          <li>Built REST API endpoints for an inventory management system (product catalog, stock tracking, order processing) integrated with MySQL</li>
+          <li>Wrote unit and integration tests with JUnit and Mockito; documented APIs with Swagger</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal reveal-delay-3">
+        <div class="timeline-period">2022 — 2025</div>
+        <div class="timeline-role">BSc (Hons) Computing — First Class Honours</div>
+        <div class="timeline-org">London Metropolitan University · Islington College, Kathmandu</div>
+        <ul class="timeline-points">
+          <li>Graduated with First Class Honours · AAA Scholarship recipient</li>
+          <li>Final year project: Sewaghar — an 8-month solo full-stack build</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="signal">
+  <div class="container">
+    <div class="contact-inner" style="margin:0 auto;">
+      <div class="section-eyebrow reveal" style="text-align:center; justify-content:center;">05 · Signal</div>
+      <div class="contact-big reveal">
+        Let's build<br>something <em>real.</em>
+      </div>
+      <p class="contact-sub reveal reveal-delay-1">
+        Open to remote Java backend roles, freelance projects, and interesting conversations. If you're building something that needs solid backend thinking — reach out.
+      </p>
+      <a href="mailto:manojpoudel4210@gmail.com" class="contact-email reveal reveal-delay-2">manojpoudel4210@gmail.com</a>
+      <div class="contact-links reveal reveal-delay-3">
+        <a href="https://linkedin.com/in/manojpoudel" target="_blank" class="contact-link">LinkedIn</a>
+        <a href="https://github.com/themanoj01" target="_blank" class="contact-link">GitHub</a>
+        <a href="Manoj_Poudel_CV.pdf" class="contact-link">Resume</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© 2026 <span>Manoj Poudel</span> · Built with intention.</div>
+  <div class="footer-right">Kathmandu, Nepal · Available for remote work</div>
+</footer>
+
+<script>
+// HAMBURGER MENU
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+// SMOOTH SCROLL FOR NAV
+document.querySelectorAll("a[href^='#']").forEach(a => {
+  a.addEventListener("click", e => {
+    const target = document.querySelector(a.getAttribute("href"));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: "smooth" }); }
+  });
+});
+
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let cx = 0, cy = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
+
+function animateCursor() {
+  cursor.style.left = cx + 'px';
+  cursor.style.top = cy + 'px';
+  rx += (cx - rx) * 0.12;
+  ry += (cy - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.querySelectorAll('a, button, .skill-tag').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.classList.add('expand'); ring.classList.add('expand'); });
+  el.addEventListener('mouseleave', () => { cursor.classList.remove('expand'); ring.classList.remove('expand'); });
+});
+
+// NAV SCROLL
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// REVEAL ON SCROLL
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+
+// PARTICLE CANVAS
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const NUM = 60;
+const particles = Array.from({ length: NUM }, () => ({
+  x: Math.random() * window.innerWidth,
+  y: Math.random() * window.innerHeight,
+  vx: (Math.random() - 0.5) * 0.3,
+  vy: (Math.random() - 0.5) * 0.3,
+  r: Math.random() * 1.5 + 0.5
+}));
+
+let mouse = { x: -9999, y: -9999 };
+document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(79,123,255,0.45)';
+    ctx.fill();
+  });
+
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 130) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(79,123,255,${0.12 * (1 - dist / 130)})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+    }
+    // mouse interaction
+    const mdx = particles[i].x - mouse.x;
+    const mdy = particles[i].y - mouse.y;
+    const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+    if (mdist < 150) {
+      ctx.beginPath();
+      ctx.moveTo(particles[i].x, particles[i].y);
+      ctx.lineTo(mouse.x, mouse.y);
+      ctx.strokeStyle = `rgba(79,123,255,${0.25 * (1 - mdist / 150)})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+  }
+
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+</script>
+</body>
 </html>
